@@ -38,6 +38,7 @@ import elastalert.alerters.thehive
 import elastalert.alerters.twilio
 import elastalert.alerters.victorops
 import elastalert.alerters.workwechat
+import elastalert.alerters.feishu
 from elastalert import alerts
 from elastalert import enhancements
 from elastalert import ruletypes
@@ -143,6 +144,7 @@ class RulesLoader(object):
         'iris': elastalert.alerters.iris.IrisAlerter,
         'indexer': IndexerAlerter,
         'matrixhookshot': MatrixHookshotAlerter,
+        'feishu': elastalert.alerters.feishu.FeishuAlert,
     }
 
     # A partial ordering of alert types. Relative order will be preserved in the resulting alerts list

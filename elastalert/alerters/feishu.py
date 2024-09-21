@@ -51,6 +51,7 @@ class FeishuAlert(Alerter):
         }
 
         if matches:
+            print("🚀 ~ file: feishu.py:54 ~ matches:", matches)
             try:
                 self.rule["feishualert_time"] = datetime.now().strftime(
                     "%Y-%m-%d %H:%M:%S")
@@ -61,7 +62,8 @@ class FeishuAlert(Alerter):
 
         try:
             url = f"{self.url}{self.bot_id}"
-            res = requests.post(url=url, data=json.dumps(body), headers=headers)
-            res.raise_for_status()
+            print(json.dumps(body))
+            # res = requests.post(url=url, data=json.dumps(body), headers=headers)
+            # res.raise_for_status()
         except RequestException as e:
             raise EAException(f"Error request to feishu: {e}")

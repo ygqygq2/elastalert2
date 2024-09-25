@@ -38,12 +38,12 @@ import elastalert.alerters.thehive
 import elastalert.alerters.twilio
 import elastalert.alerters.victorops
 import elastalert.alerters.workwechat
-import elastalert.alerters.feishu
 from elastalert import alerts
 from elastalert import enhancements
 from elastalert import ruletypes
 from elastalert.alerters.alertmanager import AlertmanagerAlerter
 from elastalert.alerters.email import EmailAlerter
+from elastalert.alerters.feishu import FeishuAlerter
 from elastalert.alerters.jira import JiraAlerter
 from elastalert.alerters.matrixhookshot import MatrixHookshotAlerter
 from elastalert.alerters.mattermost import MattermostAlerter
@@ -107,6 +107,7 @@ class RulesLoader(object):
         'alertmanager': AlertmanagerAlerter,
         'tencent_sms': TencentSMSAlerter,
         'email': EmailAlerter,
+        'feishu': FeishuAlerter,
         'jira': JiraAlerter,
         'opsgenie': OpsGenieAlerter,
         'stomp': elastalert.alerters.stomp.StompAlerter,
@@ -144,7 +145,6 @@ class RulesLoader(object):
         'iris': elastalert.alerters.iris.IrisAlerter,
         'indexer': IndexerAlerter,
         'matrixhookshot': MatrixHookshotAlerter,
-        'feishu': elastalert.alerters.feishu.FeishuAlert,
     }
 
     # A partial ordering of alert types. Relative order will be preserved in the resulting alerts list

@@ -883,7 +883,6 @@ properties:
 
   ### Feishu
   feishu_robot_webhook_url: {type: string}
-  feishu_title: {type: string}
   feishu_skip:
     type: object
     properties:

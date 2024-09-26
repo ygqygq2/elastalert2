@@ -19,11 +19,16 @@ class FeishuAlerter(Alerter):
 
     def get_info(self) -> dict:
         return {
-            "type": "FeishuAlert"
+            "type": "Feishu"
         }
 
     def alert(self, matches: list):
         title = self.create_title(matches)
+        # 处理 event.duration 的转换
+        for match in matches:
+            if 'event' in match and 'duration' in match['event']:
+                match['event']['duration'] = float(match['event']['duration']) / 1e9
+        # print("matches: ", matches)
         body = self.create_alert_body(matches)
 
         now = datetime.now().strftime("%H:%M:%S")
@@ -42,12 +47,6 @@ class FeishuAlerter(Alerter):
                 "text": body
             }
         }
-
-        # if matches:
-        #     try:
-        #         payload["content"]["text"] = body
-        #     except Exception as e:
-        #         elastalert_logger.error(f"Error formatting message: {e}")
 
         try:
             res = requests.post(url=self.url, data=json.dumps(payload), headers=headers)

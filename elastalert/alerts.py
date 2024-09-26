@@ -2,7 +2,9 @@
 import copy
 import json
 import os
+import re
 
+from datetime import datetime
 from jinja2 import Template
 
 from prettytable import PrettyTable
@@ -57,6 +59,12 @@ class BasicMatchString(object):
                     alert_value = self.rule.get(alert_text_args[i])
                     if alert_value:
                         alert_text_values[i] = alert_value
+
+            # 检查 alert_text_args 中是否包含 alert_time
+            for i, arg in enumerate(alert_text_args):
+                if arg == 'alert_time':
+                    # 获取当前时间并格式化为字符串
+                    alert_text_values[i] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
             alert_text_values = [missing if val is None else val for val in alert_text_values]
             alert_text = alert_text.format(*alert_text_values)
@@ -131,6 +139,13 @@ class BasicMatchString(object):
                 self._add_top_counts()
             if self.rule.get('alert_text_type') != 'exclude_fields':
                 self._add_match_items()
+
+        # 获取当前时间并格式化为字符串
+        alert_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # 替换 {alert_time} 占位符
+        self.text = re.sub(r'\{\s*alert_time\s*\}', alert_time, self.text)
+
         return self.text
 
 
